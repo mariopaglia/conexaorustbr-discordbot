@@ -13,6 +13,22 @@ module.exports = {
     ),
 
   run: async ({ client, interaction }) => {
+    const allowedRoleIds = [
+      "1145767690280120403",
+      "1201612445790240879",
+      "1189575086089449582",
+    ];
+
+    const hasPermission = interaction.member.roles.cache.some((role) =>
+      allowedRoleIds.includes(role.id)
+    );
+
+    if (!hasPermission) {
+      return interaction.reply(
+        "Você não tem permissão para usar este comando."
+      );
+    }
+
     const url = interaction.options.getString("url");
 
     try {
